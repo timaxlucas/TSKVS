@@ -62,8 +62,12 @@ app.post("/authenticate", (req, res) => {
 app.get("/", isAuthorized, (req, res) => {
   const { username } = req.user
   
-  const keys = Object.entries(STORE.userdata[username]).map(([key, _value]) => key)
-  res.send({ ok: true, keys })
+  try {
+    const keys = Object.entries(STORE.userdata[username]).map(([key, _value]) => key)
+    res.send({ ok: true, keys })
+  } catch (e) {
+    res.send({ ok: false })
+  }
 })
 
 /* ----------- Get ----------- */
@@ -71,11 +75,16 @@ app.get("/:key", isAuthorized, (req, res) => {
   const { username } = req.user
   const { key } = req.params
 
-  const value = STORE.userdata[username][key]
-  if (!value) {
-    return res.status(404).send({ ok: false })
+  try {
+    const value = STORE.userdata[username][key]
+
+    if (!value) {
+      return res.status(404).send({ ok: false })
+    }
+    res.send({ ok: true, value })
+  } catch(e) {
+    res.status(404).send({ ok: false })
   }
-  res.send({ ok: true, value })
 })
 
 /* ----------- Delete ----------- */
@@ -83,7 +92,11 @@ app.delete("/:key", isAuthorized, (req, res) => {
   const { username } = req.user
   const { key } = req.params
 
-  delete STORE.userdata[username][key]
+  try {
+    delete STORE.userdata[username][key]
+  } catch (e) {
+    return res.send({ ok: false })
+  }
   res.send({ ok: true })
 })
 
@@ -92,9 +105,13 @@ app.put("/", isAuthorized, (req, res) => {
   const { username } = req.user
   const { key, value } = req.body
 
-  STORE.userdata[username][key] = value
+  try {
+    STORE.userdata[username][key] = value
+  } catch (e) {
+    return res.send({ ok: false })
+  }
   res.send({ ok: true })
 })
 
 
-https.createServer(options, app).listen(8080);
+https.createServer(options, app).listen(8080, '0.0.0.0');
