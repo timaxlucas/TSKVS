@@ -1,6 +1,8 @@
 # TSKVS (totally secure key value storage)
 
-Note: The service at 172.16.3.13:8080 restarts every 30 minutes and storage is not persistent.
+Note: The service at `172.16.3.13:8080` restarts every 30 minutes and storage is not persistent.
+
+Demo User: `snowman`, password: `iceberg`
 
 
 ## Requirements

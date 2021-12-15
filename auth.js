@@ -1,13 +1,9 @@
 const { sign, verify } = require("jsonwebtoken")
 const ACCESS_TOKEN_SECRET = 'snowmangotthemoves1338'
 
-
-const sanitizeJWTPayload = input => input.replace(/[^a-zA-Z0-9]/g, "")
-
 const createAccessToken = (username) => {
-  return sign({ username: sanitizeJWTPayload(username) }, ACCESS_TOKEN_SECRET);
+  return sign({ username }, ACCESS_TOKEN_SECRET);
 };
-
 
 // Express middleware
 const isAuthorized = (req, res, next) => {
@@ -19,15 +15,14 @@ const isAuthorized = (req, res, next) => {
 
   try {
     const token = authorization.split(" ")[1]
-    req.user = verify(token, ACCESS_TOKEN_SECRET)
+    const { username } = verify(token, ACCESS_TOKEN_SECRET)
+    req.user = { username: username.toLowerCase() }
   } catch (err) {
     return res.status(401).json({ message: 'access token expired or invalid' });
   }
 
   return next();
 };
-
-
 
 module.exports = {
   isAuthorized,
