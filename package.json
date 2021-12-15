@@ -5,9 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
-    "node-serialize": "0.0.4"
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {},
   "scripts": {
