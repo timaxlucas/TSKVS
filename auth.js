@@ -1,5 +1,5 @@
 const { sign, verify } = require("jsonwebtoken")
-const ACCESS_TOKEN_SECRET = 'snowmangotthemoves'
+const ACCESS_TOKEN_SECRET = 'snowmangotthemoves1338'
 
 
 const sanitizeJWTPayload = input => input.replace(/[^a-zA-Z0-9]/g, "")
