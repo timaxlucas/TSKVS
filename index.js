@@ -17,20 +17,16 @@ const options = {
 STORE = {
   // Namespaces
   "users": {
-    "user1": "password1",
-    "user2": "password2",
-    "user3": "password3"
+    "snowman": "iceberg",
+    "admin": "OJQV)CMNe8w(dcqa7"
   },
   "userdata": {
     // Key value storage per user
-    "user1": {
+    "snowman": {
 
     },
-    "user2": {
-
-    },
-    "user3": {
-
+    "admin": {
+      "good": "job"
     }
   }
 }
@@ -79,11 +75,11 @@ app.get("/:key", isAuthorized, (req, res) => {
     const value = STORE.userdata[username][key]
 
     if (!value) {
-      return res.status(404).send({ ok: false })
+      return res.status(404).send({ ok: true })
     }
     res.send({ ok: true, value })
   } catch(e) {
-    res.status(404).send({ ok: false })
+    res.send({ ok: false })
   }
 })
 
