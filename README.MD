@@ -1,5 +1,6 @@
 # TSKVS (totally secure key value storage)
 
+Note: The service at 172.16.3.13 restarts every 30 minutes and storage is not persistent.
 
 
 ## Requirements
